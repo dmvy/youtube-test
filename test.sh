@@ -13,7 +13,7 @@ for video in `cat video`; do
 	q360_url="`./youtube-dl.py --get-url -f 34 "http://www.youtube.com/watch?v=$video"`"
 	/usr/bin/wget --progress=dot:mega -o $video/wget.log -O /dev/null "$q360_url"
 	grep saved $video/wget.log >> $video/speed_360.log
-	HOST360=`cat $video/wget.log | grep "|" | cut -d "|" -f 2`
+	HOST360=`cat $video/wget.log | grep "|" | cut -d "|" -f 2|tail -n 1`
 	echo $HOST360
 	DT=`date +%Y-%m-%d_%H-%M`
 	/usr/bin/mtr -wrc100 $HOST360 > $video/${DT}_360.mtr &
@@ -22,7 +22,7 @@ for video in `cat video`; do
 	q720_url="`./youtube-dl.py --get-url -f 22 "http://www.youtube.com/watch?v=$video"`"
 	/usr/bin/wget --progress=dot:mega -o $video/wget.log -O /dev/null "$q720_url"
 	grep saved $video/wget.log >> $video/speed_720.log
-	HOST720=`cat $video/wget.log | grep "|" | cut -d "|" -f 2`
+	HOST720=`cat $video/wget.log | grep "|" | cut -d "|" -f 2|tail -n 1`
 	echo $HOST720
 	DT=`date +%Y-%m-%d_%H-%M`
 	/usr/bin/mtr -wrc100 $HOST720 > $video/${DT}_720.mtr &
